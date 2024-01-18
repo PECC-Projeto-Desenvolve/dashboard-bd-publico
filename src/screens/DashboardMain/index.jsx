@@ -1,8 +1,7 @@
 import * as React from 'react';
 import EducationTypePie from '../../components/EducationTypePie';
 import {Box, Paper, Typography} from '@mui/material';
-/* import { formsFetch } from './services'; */
-
+import AgeRangePie from '../../components/AgeRangePie';
 const mockData = [
     {
         "id": "46beb134-4d29-45aa-9475-071a1b8521b6",
@@ -1219,6 +1218,49 @@ const mockData = [
     },
 ];
 
+function calculateAge(dateOfBirth) {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+function countUsersByAgeRanges(users) {
+    const ageRanges = {
+        "15to18range": 0,
+        "19to25range": 0,
+        "26to30range": 0,
+        "31to40range": 0,
+        "41to50range": 0,
+    };
+
+    users.forEach(user => {
+        const age = calculateAge(user.dataNasc);
+        if (age >= 15 && age < 18) {
+            ageRanges["15to30range"]++;
+        } else if (age >= 19 && age < 25) {
+            ageRanges["19to25range"]++;
+        }
+        else if (age >= 26 && age < 30) {
+            ageRanges["26to30range"]++;
+        }
+        else if (age >= 31 && age < 40) {
+            ageRanges["31to40range"]++;
+        }
+        else if (age >= 41 && age < 50) {
+            ageRanges["41to50range"]++;
+        }
+    });
+
+    return ageRanges;
+}
+// Exemplo de uso:
+const users = [ /* seu array de usuários */ ];
+
 function countUsersWithFieldValue(users, fieldName, value) {
     return users.reduce((count, user) => {
         if (user[fieldName] === value) {
@@ -1227,6 +1269,30 @@ function countUsersWithFieldValue(users, fieldName, value) {
         return count;
     }, 0);
 }
+
+function countUsersWithFieldValueInRange(users, fieldName, minValue, maxValue, inclusive = true) {
+    return users.reduce((count, user) => {
+        const value = user[fieldName];
+        if (inclusive) {
+            if (value >= minValue && value <= maxValue) {
+                return count + 1;
+            }
+        } else {
+            if (value > minValue && value < maxValue) {
+                return count + 1;
+            }
+        }
+        return count;
+    }, 0);
+}
+
+const agesData = [
+    { name: '15-18', value: countUsersWithFieldValueInRange(users, 'age', 15, 18) },
+    { name: '19-25', value: countUsersWithFieldValueInRange(users, 'age', 19, 25) },
+    { name: '26-30', value: countUsersWithFieldValueInRange(users, 'age', 26, 30) },
+    { name: '31-40', value: countUsersWithFieldValueInRange(users, 'age', 31, 40) },
+    { name: '41-50', value: countUsersWithFieldValueInRange(users, 'age', 41, 50) }
+];
 
 const DashboardMain = () => {
     /* const [data, setData] = React.useState<any>([]);
@@ -1244,6 +1310,9 @@ const DashboardMain = () => {
  */
     const countPublica = countUsersWithFieldValue(mockData, 'escolaPublica', true);
     const countPrivada = countUsersWithFieldValue(mockData, 'escolaPublica', null);
+
+    const countAgeRange = countUsersByAgeRanges(mockData);
+    console.log(countAgeRange);
 
     return (
         <Box sx={{ 
@@ -1266,6 +1335,8 @@ const DashboardMain = () => {
                 <Typography variant='h2' fontWeight={'bold'}>Dashboard</Typography>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Estudantes de Escola Pública x Estudantes de Escola Particular</Typography>
                 <EducationTypePie nomeLabel1={'Estudantes de Escola Publica'} qtdLabel1={countPublica} nomeLabel2={'Estudantes de Escola Particular'} qtdLabel2={countPrivada}/>
+                <Typography variant='h5' fontWeight={'bold'} my={2}>Faixa Etária</Typography>
+                <AgeRangePie qtdLabel1={1} qtdLabel2={2} qtdLabel3={3} qtdLabel4={4} qtdLabel5={5}/>
             </Paper>
         </Box>
     )

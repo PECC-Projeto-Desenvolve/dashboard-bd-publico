@@ -1,4 +1,4 @@
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import { PieChart } from '@mui/x-charts';
 
 const EducationTypePie = ({nomeLabel1, qtdLabel1, nomeLabel2, qtdLabel2}) => {
     return (

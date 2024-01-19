@@ -1229,43 +1229,25 @@ function calculateAge(dateOfBirth) {
     return age;
 }
 
-function countUsersByAgeRanges(users) {
-    const ageRanges = {
-        "15to18range": 0,
-        "19to25range": 0,
-        "26to30range": 0,
-        "31to40range": 0,
-        "41to50range": 0,
-    };
-
-    users.forEach(user => {
-        const age = calculateAge(user.dataNasc);
-        if (age >= 15 && age < 18) {
-            ageRanges["15to30range"]++;
-        } else if (age >= 19 && age < 25) {
-            ageRanges["19to25range"]++;
-        }
-        else if (age >= 26 && age < 30) {
-            ageRanges["26to30range"]++;
-        }
-        else if (age >= 31 && age < 40) {
-            ageRanges["31to40range"]++;
-        }
-        else if (age >= 41 && age < 50) {
-            ageRanges["41to50range"]++;
-        }
-    });
-
-    return ageRanges;
-}
-// Exemplo de uso:
-const users = [ /* seu array de usuários */ ];
 
 function countUsersWithFieldValue(users, fieldName, value) {
     return users.reduce((count, user) => {
         if (user[fieldName] === value) {
             return count + 1;
         }
+        return count;
+    }, 0);
+}
+
+function countUsersWithAgeInRange(users, minValue, maxValue) {
+    return users.reduce((count, user) => {
+        const age = calculateAge(user.dataNasc);
+            if (age >= minValue && age <= maxValue) {
+                return count + 1;
+            }
+            if (age > minValue && age < maxValue) {
+                return count + 1;
+            }
         return count;
     }, 0);
 }
@@ -1286,14 +1268,6 @@ function countUsersWithFieldValueInRange(users, fieldName, minValue, maxValue, i
     }, 0);
 }
 
-const agesData = [
-    { name: '15-18', value: countUsersWithFieldValueInRange(users, 'age', 15, 18) },
-    { name: '19-25', value: countUsersWithFieldValueInRange(users, 'age', 19, 25) },
-    { name: '26-30', value: countUsersWithFieldValueInRange(users, 'age', 26, 30) },
-    { name: '31-40', value: countUsersWithFieldValueInRange(users, 'age', 31, 40) },
-    { name: '41-50', value: countUsersWithFieldValueInRange(users, 'age', 41, 50) }
-];
-
 const DashboardMain = () => {
     /* const [data, setData] = React.useState<any>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
@@ -1310,9 +1284,12 @@ const DashboardMain = () => {
  */
     const countPublica = countUsersWithFieldValue(mockData, 'escolaPublica', true);
     const countPrivada = countUsersWithFieldValue(mockData, 'escolaPublica', null);
-
-    const countAgeRange = countUsersByAgeRanges(mockData);
-    console.log(countAgeRange);
+  
+    const countAge15to18 = countUsersWithAgeInRange(mockData, 15, 18);
+    const countAge19to25 = countUsersWithAgeInRange(mockData, 19, 25);
+    const countAge26to35 = countUsersWithAgeInRange(mockData, 26, 35);
+    const countAge35Plus = countUsersWithAgeInRange(mockData, 36, 100);
+    console.log(countAge15to18, countAge19to25, countAge26to35, countAge35Plus);
 
     return (
         <Box sx={{ 
@@ -1336,7 +1313,7 @@ const DashboardMain = () => {
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Estudantes de Escola Pública x Estudantes de Escola Particular</Typography>
                 <EducationTypePie nomeLabel1={'Estudantes de Escola Publica'} qtdLabel1={countPublica} nomeLabel2={'Estudantes de Escola Particular'} qtdLabel2={countPrivada}/>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Faixa Etária</Typography>
-                <AgeRangePie qtdLabel1={1} qtdLabel2={2} qtdLabel3={3} qtdLabel4={4} qtdLabel5={5}/>
+                <AgeRangePie qtdLabel1={countAge15to18} qtdLabel2={countAge19to25} qtdLabel3={countAge26to35} qtdLabel4={countAge35Plus}/>
             </Paper>
         </Box>
     )

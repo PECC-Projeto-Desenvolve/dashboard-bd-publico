@@ -119,7 +119,7 @@ const DashboardMain = () => {
         }>
                 <Typography variant='h2' fontWeight={'bold'}>Dashboard</Typography>
                 <Typography variant='h5' textAlign={'center'} fontWeight={'bold'} my={2}>Escola Pública x Escola Particular</Typography>
-                <EducationTypePie nomeLabel1={'Escola Publica'} qtdLabel1={countPublica} nomeLabel2={'Particular'} qtdLabel2={countPrivada}/>
+                <EducationTypePie nomeLabel1={'Publica'} qtdLabel1={countPublica} nomeLabel2={'Particular'} qtdLabel2={countPrivada}/>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Faixa Etária</Typography>
                 <AgeRangePie qtdLabel1={countAge15to18} qtdLabel2={countAge19to25} qtdLabel3={countAge26to35} qtdLabel4={countAge35Plus}/>
             </Paper>

@@ -1,14 +1,8 @@
 
 
 export function formsFetch (url: string) {
-    const token = 'Rm9ybUFwaUZlaXRhUGVsb0plYW5QaWVycmVQYXJhYURlc2Vudm9sdmU=';
-
     return fetch(url, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token // Se necessário, ajuste conforme a API requer
-        }
     })
     .then((response) => {
         if (!response.ok) {

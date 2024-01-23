@@ -1,6 +1,6 @@
 import { PieChart } from '@mui/x-charts';
 
-const AgeRangePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4}) => {
+const IncomePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4, qtdLabel5}) => {
   const data = [
     { id: 0, value: qtdLabel1, label: "15-18 anos" },
     { id: 1, value: qtdLabel2, label: "19-25 anos" },
@@ -28,4 +28,4 @@ const AgeRangePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4}) => {
     );
   }
 
-export default AgeRangePie;  
+export default IncomePie;  

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import EducationTypePie from '../../components/EducationTypePie';
-import {Box, Paper, Typography} from '@mui/material';
+import {Box, Paper, Typography, CircularProgress} from '@mui/material';
 import AgeRangePie from '../../components/AgeRangePie';
 import IncomePie from '../../components/IncomePie';
 import GenderPie from '../../components/GenderPie';
@@ -79,7 +79,17 @@ const DashboardMain = () => {
     // Renderize seu componente aqui...
 
     if (loading) {
-        return <div>Carregando...</div>;
+        return (
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                width: '100vw',
+            }}>
+                <CircularProgress/>
+            </Box> 
+        )
     }
     
     console.log(dataForms);

@@ -18,7 +18,6 @@ const IncomePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4, qtdLabel5}) => {
             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
           },
         ]}
-        title='Renda Familifdggar'
         height={200}
         width={400}
       />

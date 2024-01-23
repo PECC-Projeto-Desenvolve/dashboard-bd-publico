@@ -4,6 +4,7 @@ import EducationTypePie from '../../components/EducationTypePie';
 import {Box, Paper, Typography} from '@mui/material';
 import AgeRangePie from '../../components/AgeRangePie';
 import IncomePie from '../../components/IncomePie';
+import GenderPie from '../../components/GenderPie';
 
 function calculateAge(dateOfBirth) {
     const today = new Date();
@@ -26,6 +27,16 @@ function countUsersWithFieldValue(users, fieldName, value) {
     }, 0);
 }
 
+function countUsersWithNonNullExam(dataForms) {
+    return dataForms.reduce((count, user) => {
+        if (user.exam !== null) {
+            return count + 1;
+        }
+        return count;
+    }, 0);
+}
+
+
 function countUsersWithAgeInRange(users, minValue, maxValue) {
     return users.reduce((count, user) => {
         const age = calculateAge(user.dataNasc);
@@ -35,22 +46,6 @@ function countUsersWithAgeInRange(users, minValue, maxValue) {
             if (age > minValue && age < maxValue) {
                 return count + 1;
             }
-        return count;
-    }, 0);
-}
-
-function countUsersWithFieldValueInRange(users, fieldName, minValue, maxValue, inclusive = true) {
-    return users.reduce((count, user) => {
-        const value = user[fieldName];
-        if (inclusive) {
-            if (value >= minValue && value <= maxValue) {
-                return count + 1;
-            }
-        } else {
-            if (value > minValue && value < maxValue) {
-                return count + 1;
-            }
-        }
         return count;
     }, 0);
 }
@@ -68,7 +63,8 @@ const DashboardMain = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setDataForms(data);setCountForms(data.length);
+                setDataForms(data);
+                setCountForms(countUsersWithNonNullExam(data));
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
@@ -76,6 +72,8 @@ const DashboardMain = () => {
         };
         fetchData();
     }, []);
+    
+    console.log(countForms);
 
     // Renderize seu componente aqui...
 
@@ -98,6 +96,14 @@ const DashboardMain = () => {
     const countDe3a10 = countUsersWithFieldValue(dataForms, 'rendaFamiliar', 'De3a10SalariosMinimos')
     const countDe10a40 = countUsersWithFieldValue(dataForms, 'rendaFamiliar', 'De10a40SalariosMinimos')
     const countMaiorQue40 = countUsersWithFieldValue(dataForms, 'rendaFamiliar', 'MaisDe40SalariosMinimos')
+
+    const countMasculino = countUsersWithFieldValue(dataForms, 'genero', 'Masculino')
+    const countFeminino = countUsersWithFieldValue(dataForms, 'genero', 'Feminino')
+    const countNaoBinario = countUsersWithFieldValue(dataForms, 'genero', 'naoBinario')
+    const countNaoDeclarado = countUsersWithFieldValue(dataForms, 'genero', 'prefiroNaoDeclarar')
+    const countOutros = countUsersWithFieldValue(dataForms, 'genero', 'outros')
+
+    console.log(countMasculino, countFeminino, countNaoBinario, countNaoDeclarado, countOutros)
 
     return (
         <Box sx={{ 
@@ -126,6 +132,8 @@ const DashboardMain = () => {
                 <AgeRangePie qtdLabel1={countAge15to18} qtdLabel2={countAge19to25} qtdLabel3={countAge26to35} qtdLabel4={countAge35Plus}/>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Renda Familiar</Typography>
                 <IncomePie qtdLabel1={countMenorQue1} qtdLabel2={countDe1a3} qtdLabel3={countDe3a10} qtdLabel4={countDe10a40} qtdLabel5={countMaiorQue40}/>
+                <Typography variant='h5' fontWeight={'bold'} my={2}>Gênero</Typography>
+                <GenderPie qtdLabel1={countMasculino} qtdLabel2={countFeminino} qtdLabel3={countNaoBinario} qtdLabel4={countNaoDeclarado} qtdLabel5={countOutros}/>
             </Paper>
         </Box>
     )

@@ -122,6 +122,7 @@ const DashboardMain = () => {
             width: '100%',
             height: '100%',
             backgroundColor: '#F5F5F5', 
+            py: 3,
         }}>
             <Paper sx={
             {
@@ -136,7 +137,7 @@ const DashboardMain = () => {
             }
         }>
                 <Typography variant='h2' fontWeight={'bold'}>Dashboard</Typography>
-                <Typography variant='h5' fontWeight={'bold'} my={2} textAlign={'center'}>Total de Formulários Preenchidos: {countForms}</Typography>
+                <Typography variant='h5' fontWeight={'bold'} my={2} textAlign={'center'}>Total de Candidatos Inscritos: {countForms}</Typography>
                 <Typography variant='h5' textAlign={'center'} fontWeight={'bold'} my={2}>Escola Pública x Escola Particular</Typography>
                 <EducationTypePie nomeLabel1={'Publica'} qtdLabel1={countPublica} nomeLabel2={'Particular'} qtdLabel2={countPrivada}/>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Faixa Etária</Typography>

@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import EducationTypePie from '../../components/EducationTypePie';
 import {Box, Paper, Typography} from '@mui/material';
 import AgeRangePie from '../../components/AgeRangePie';
+import IncomePie from '../../components/IncomePie';
 
 function calculateAge(dateOfBirth) {
     const today = new Date();
@@ -56,6 +57,7 @@ function countUsersWithFieldValueInRange(users, fieldName, minValue, maxValue, i
 
 const DashboardMain = () => {
     const [dataForms, setDataForms] = useState([]);
+    const [countForms, setCountForms] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -66,7 +68,7 @@ const DashboardMain = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setDataForms(data);
+                setDataForms(data);setCountForms(data.length);
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
@@ -97,7 +99,6 @@ const DashboardMain = () => {
     const countDe10a40 = countUsersWithFieldValue(dataForms, 'rendaFamiliar', 'De10a40SalariosMinimos')
     const countMaiorQue40 = countUsersWithFieldValue(dataForms, 'rendaFamiliar', 'MaisDe40SalariosMinimos')
 
-
     return (
         <Box sx={{ 
             flexGrow: 1,
@@ -118,10 +119,13 @@ const DashboardMain = () => {
             }
         }>
                 <Typography variant='h2' fontWeight={'bold'}>Dashboard</Typography>
+                <Typography variant='h5' fontWeight={'bold'} my={2} textAlign={'center'}>Total de Formulários Preenchidos: {countForms}</Typography>
                 <Typography variant='h5' textAlign={'center'} fontWeight={'bold'} my={2}>Escola Pública x Escola Particular</Typography>
                 <EducationTypePie nomeLabel1={'Publica'} qtdLabel1={countPublica} nomeLabel2={'Particular'} qtdLabel2={countPrivada}/>
                 <Typography variant='h5' fontWeight={'bold'} my={2}>Faixa Etária</Typography>
                 <AgeRangePie qtdLabel1={countAge15to18} qtdLabel2={countAge19to25} qtdLabel3={countAge26to35} qtdLabel4={countAge35Plus}/>
+                <Typography variant='h5' fontWeight={'bold'} my={2}>Renda Familiar</Typography>
+                <IncomePie qtdLabel1={countMenorQue1} qtdLabel2={countDe1a3} qtdLabel3={countDe3a10} qtdLabel4={countDe10a40} qtdLabel5={countMaiorQue40}/>
             </Paper>
         </Box>
     )

@@ -1,20 +1,16 @@
-import { PieChart } from '@mui/x-charts';
+import { Box } from '@mui/material';
+import { PieChart, ResponsiveChartContainer } from '@mui/x-charts';
 
 const IncomePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4, qtdLabel5}) => {
   const data = [
-    { id: 0, value: qtdLabel1, label: "15-18 anos" },
-    { id: 1, value: qtdLabel2, label: "19-25 anos" },
-    { id: 2, value: qtdLabel3, label: "26-35 anos" },
-    { id: 3, value: qtdLabel4, label: "36+ anos" },
+    { id: 0, value: qtdLabel1, label: "Até 1 Salário" },
+    { id: 1, value: qtdLabel2, label: "1-3 Salários" },
+    { id: 2, value: qtdLabel3, label: "3-10 Salários" },
+    { id: 3, value: qtdLabel4, label: "10-40 Salários" },
+    { id: 4, value: qtdLabel5, label: "40+ Salários"}
   ];
     return (
       <PieChart
-        sx={{
-          display: 'flex',
-          mx: 'auto',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
         series={[
           {
             data: data,
@@ -22,9 +18,11 @@ const IncomePie = ({qtdLabel1, qtdLabel2, qtdLabel3, qtdLabel4, qtdLabel5}) => {
             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
           },
         ]}
+        title='Renda Familifdggar'
         height={200}
         width={400}
       />
+ 
     );
   }
 

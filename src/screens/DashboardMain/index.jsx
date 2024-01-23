@@ -62,9 +62,10 @@ const DashboardMain = () => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = await response.json();
+                let data = await response.json();
+                data = data.filter(user => user.exam !== null)
                 setDataForms(data);
-                setCountForms(countUsersWithNonNullExam(data));
+                setCountForms(data.length);
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
@@ -72,7 +73,7 @@ const DashboardMain = () => {
         };
         fetchData();
     }, []);
-    
+
     console.log(countForms);
 
     // Renderize seu componente aqui...

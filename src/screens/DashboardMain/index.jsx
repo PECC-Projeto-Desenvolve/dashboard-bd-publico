@@ -110,9 +110,9 @@ const DashboardMain = () => {
 
     const countMasculino = countUsersWithFieldValue(dataForms, 'genero', 'Masculino')
     const countFeminino = countUsersWithFieldValue(dataForms, 'genero', 'Feminino')
-    const countNaoBinario = countUsersWithFieldValue(dataForms, 'genero', 'naoBinario')
-    const countNaoDeclarado = countUsersWithFieldValue(dataForms, 'genero', 'prefiroNaoDeclarar')
-    const countOutros = countUsersWithFieldValue(dataForms, 'genero', 'outros')
+    const countNaoBinario = countUsersWithFieldValue(dataForms, 'genero', 'NaoBinario')
+    const countNaoDeclarado = countUsersWithFieldValue(dataForms, 'genero', 'PrefiroNaoDeclarar')
+    const countOutros = countUsersWithFieldValue(dataForms, 'genero', 'Outros')
 
     console.log(countMasculino, countFeminino, countNaoBinario, countNaoDeclarado, countOutros)
 

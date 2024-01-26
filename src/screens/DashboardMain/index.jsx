@@ -136,7 +136,8 @@ const DashboardMain = () => {
                 margin: 'auto',
             }
         }>
-                <Typography variant='h2' fontWeight={'bold'}>Dashboard</Typography>
+                <Typography variant='h2' textAlign={'center'} fontWeight={'bold'}>Painel de Inscrições</Typography>
+                <Typography variant='h2' textAlign={'center'} fontWeight={'bold'}>Bom Despacho</Typography>
                 <Typography variant='h5' fontWeight={'bold'} my={2} textAlign={'center'}>Total de Candidatos Inscritos: {countForms}</Typography>
                 <Typography variant='h5' textAlign={'center'} fontWeight={'bold'} my={2}>Escola Pública x Escola Particular</Typography>
                 <EducationTypePie nomeLabel1={'Publica'} qtdLabel1={countPublica} nomeLabel2={'Particular'} qtdLabel2={countPrivada}/>

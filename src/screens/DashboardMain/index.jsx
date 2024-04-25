@@ -142,7 +142,7 @@ const DashboardMain = () => {
             overflowX: 'hidden',
         }}>
                 <Typography fontSize={isSmallScreen ? 35 : 70} fontWeight={'bold'} textAlign={'center'}>Painel de Inscrições Bom Despacho</Typography>
-                <Typography fontSize={isSmallScreen ? 25 : 40} textAlign={'center'}>Inscrições: {countForms}</Typography>
+                <Typography fontSize={isSmallScreen ? 25 : 40} textAlign={'center'}>Inscrições Completas: {countForms}</Typography>
 
                 <Divider sx={{my:1}}/>
 

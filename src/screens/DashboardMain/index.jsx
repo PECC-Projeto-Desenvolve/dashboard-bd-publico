@@ -120,13 +120,6 @@ const DashboardMain = () => {
     const countNaoDeclarado = countUsersWithFieldValue(dataForms, 'genero', 'PrefiroNaoDeclarar')
     const countOutros = countUsersWithFieldValue(dataForms, 'genero', 'Outros')
 
-    const countMedioIncompleto = countUsersWithFieldValue(dataForms, 'escolaridade', 'MedioIncompleto')
-    const countMedioCompleto = countUsersWithFieldValue(dataForms, 'escolaridade', 'MedioCompleto')
-    const countMedioCursando = countUsersWithFieldValue(dataForms, 'escolaridade', 'MedioCursando')
-    const countSuperiorIncompleto = countUsersWithFieldValue(dataForms, 'escolaridade', 'SuperiorIncompleto')
-    const countSuperiorCompleto = countUsersWithFieldValue(dataForms, 'escolaridade', 'SuperiorCompleto')
-    const countSuperiorCursando = countUsersWithFieldValue(dataForms, 'escolaridade', 'SuperiorCursando')
-
     const countRacaBranca = countUsersWithFieldValue(dataForms, 'raca', 'Branca')
     const countRacaPreta = countUsersWithFieldValue(dataForms, 'raca', 'Preta')
     const countRacaParda = countUsersWithFieldValue(dataForms, 'raca', 'Parda')
